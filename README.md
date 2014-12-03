@@ -36,6 +36,16 @@ If you're morphed, you can provide a link to unmorph:
   = link_to "Unmorph", morphing.unmorph_path
 ```
 
+## Overriding controller behavior
+
+If you want to, for example, alter behavior of the controller, Rails recommends either ```Class#eval``` or ```ActiveSupport::Concern```. For more info, see [Configuring an Engine](http://guides.rubyonrails.org/engines.html#configuring-an-engine). Here's an example:
+
+```
+Morphing::MorphingController.class_eval do
+  authenticate_user! only: [:morph]
+end
+```
+
 ## Sponsor
 
 This project is sponsored by the engineering team at [Bloc](https://www.bloc.io).
