@@ -8,11 +8,20 @@ NOTE: This library assumes you're using devise.
 
 Add the following to your Gemfile:
 
-```
+```ruby
 gem 'morphing'
 ```
 
 and be sure to ```bundle install```.
+
+Add the following to your ```app/helpers/application_helper.rb```:
+
+```ruby
+module ApplicationHelper
+  include Morphing::ApplicationHelper
+end
+```
+
 
 Then place a link somewhere only admins can see:
 
@@ -20,18 +29,11 @@ Then place a link somewhere only admins can see:
 = link_to "Morph", morphing.morph_path(@user)
 ```
 
-How to detect if you're morphed:
-
-```
-def morphed?
-  session[:morphed_from].present?
-end
-```
-
 If you're morphed, you can provide a link to unmorph:
 
-```
-= link_to "Unmorph", morphing.unmorph_path
+```haml
+- if morphed?
+  = link_to "Unmorph", morphing.unmorph_path
 ```
 
 ## Sponsor
