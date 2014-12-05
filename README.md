@@ -68,3 +68,7 @@ end
 ## Sponsor
 
 This project is sponsored by the engineering team at [Bloc](https://www.bloc.io).
+
+## License
+
+This project is licensed under the [MIT License](MIT-LICENSE).
