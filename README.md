@@ -22,28 +22,39 @@ module ApplicationHelper
 end
 ```
 
+and add to your routes:
+
+```ruby
+morphing_for
+```
 
 Then place a link somewhere only admins can see:
 
 ```
-= link_to "Morph", morphing.morph_path(@user)
+= link_to "Morph", morph_path(@user)
 ```
 
 If you're morphed, you can provide a link to unmorph:
 
 ```haml
 - if morphed?
-  = link_to "Unmorph", morphing.unmorph_path
+  = link_to "Unmorph", unmorph_path
 ```
 
 ## Overriding controller behavior
 
-If you want to, for example, alter behavior of the controller, Rails recommends either ```Class#eval``` or ```ActiveSupport::Concern```. For more info, see [Configuring an Engine](http://guides.rubyonrails.org/engines.html#configuring-an-engine). Here's an example:
+If you want to override the behavior of the controller, for example to add or skip before filters, or to perform authorization, just subclass the MorphingController somewhere in your application:
 
-```
-Morphing::MorphingController.class_eval do
+```ruby
+class MorphingController < Morphing::MorphingController
   authenticate_user! only: [:morph]
 end
+```
+
+Then, pass that controller as an argument to the routes helper:
+
+```ruby
+morphing_for controller: 'morphing'
 ```
 
 ## Sponsor
