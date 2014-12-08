@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Morphing by Bloc</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Morphing</h1>
+        <p>Become your users</p>
+
+        <p class="view"><a href="https://github.com/Bloc/morphing">View the Project on GitHub <small>Bloc/morphing</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/Bloc/morphing/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Bloc/morphing/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Bloc/morphing">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="morphing" class="anchor" href="#morphing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Morphing</h1>
+
+<p>Morphing is a Rails engine that allows you to morph into your users temporarily. This can be especially helpful when debugging issues reported by a user without needing to log into their account to reproduce.</p>
+
+<p>NOTE: This library assumes you're using devise.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Add the following to your Gemfile:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-k">gem</span> <span class="pl-s1"><span class="pl-pds">'</span>morphing<span class="pl-pds">'</span></span></pre></div>
+
+<p>and be sure to <code>bundle install</code> and add to your routes:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-s3">YourApplication</span>::<span class="pl-s3">Application</span>.routes.draw <span class="pl-k">do</span>
+  ...
+  morphing_for
+  ...
+<span class="pl-k">end</span></pre></div>
+
+<p>To use the <code>morphed?</code> helper, Add the following to your <code>app/helpers/application_helper.rb</code>:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-k">module</span> <span class="pl-en">ApplicationHelper</span>
+  <span class="pl-k">include</span> <span class="pl-s3">Morphing</span>::<span class="pl-vo">ApplicationHelper</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Then place a link somewhere only admins can see:</p>
+
+<pre><code>= link_to "Morph", morph_path(@user)
+</code></pre>
+
+<p>If you're morphed, you can provide a link to unmorph:</p>
+
+<div class="highlight highlight-haml"><pre>-<span class="pl-sre"> <span class="pl-k">if</span> morphed?</span>
+  =<span class="pl-sre"> <span class="pl-s3">link_to</span> <span class="pl-s1"><span class="pl-pds">"</span>Unmorph<span class="pl-pds">"</span></span>, unmorph_path</span></pre></div>
+
+<p>We recommend making this a big red banner that makes it clear you're morphed! (Future releases will have this included.)</p>
+
+<h2>
+<a id="customizing-controller-behavior" class="anchor" href="#customizing-controller-behavior" aria-hidden="true"><span class="octicon octicon-link"></span></a>Customizing controller behavior</h2>
+
+<p>If you want to customize the behavior of the controller, for example to add or skip before filters, or to perform authorization, just subclass the MorphingController somewhere in your application:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">MorphingController<span class="pl-e"> &lt; Morphing::MorphingController</span></span>
+  authenticate_user! <span class="pl-c1">only:</span> [<span class="pl-c1">:morph</span>]
+<span class="pl-k">end</span></pre></div>
+
+<p>Then, pass that controller as an argument to the routes helper:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="pl-s3">YourApplication</span>::<span class="pl-s3">Application</span>.routes.draw <span class="pl-k">do</span>
+  ...
+  morphing_for <span class="pl-c1">controller:</span> <span class="pl-s1"><span class="pl-pds">'</span>morphing<span class="pl-pds">'</span></span>
+  ...
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="sponsor" class="anchor" href="#sponsor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sponsor</h2>
+
+<p>This project is sponsored by the engineering team at <a href="https://www.bloc.io">Bloc</a>.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>This project is licensed under the <a href="MIT-LICENSE">MIT License</a>.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Bloc">Bloc</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
