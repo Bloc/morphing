@@ -72,3 +72,12 @@ This project is sponsored by the engineering team at [Bloc](https://www.bloc.io)
 ## License
 
 This project is licensed under the [MIT License](MIT-LICENSE).
+
+## Contributing
+
+Here are ways you can help:
+
+- Report bugs
+- Fix bugs and submit pull requests
+- Write, clarify, or fix documentation
+- Suggest or add new features
