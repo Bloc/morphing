@@ -2,7 +2,8 @@ module Morphing
   class MorphingController < ApplicationController
     def morph
       morph_to = User.find(params[:id])
-      session[:morphed_from]  = current_user.id
+      session[:morphed_from] ||= []
+      session[:morphed_from] << current_user.id
       sign_in(:user, morph_to)
 
       flash[:success] = "Morphed into #{morph_to.name}"
@@ -10,8 +11,9 @@ module Morphing
     end
 
     def unmorph
-      if morph_from = User.find_by_id(session[:morphed_from])
-        session.delete :morphed_from
+      previous_morph = session[:morphed_from].last
+      if morph_from = User.find_by(id: previous_morph)
+        session[:morphed_from].delete(morph_from.id)
         sign_in :user, morph_from
       end
 
