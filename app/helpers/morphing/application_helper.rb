@@ -5,7 +5,6 @@ module Morphing
     end
 
     def morphed?
-      # binding.pry
       session[:morphed_from].present?
     end
   end
