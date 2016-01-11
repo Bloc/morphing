@@ -2,7 +2,7 @@ module Morphing
   class MorphingController < ApplicationController
     def morph
       morph_to = User.find(params[:id])
-      session[:morphed_from]  = current_user.id
+      session[:morphed_from] ||= current_user.id
       sign_in(:user, morph_to)
 
       flash[:success] = "Morphed into #{morph_to.name}"
