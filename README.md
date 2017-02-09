@@ -51,7 +51,16 @@ If you want to customize the behavior of the controller, for example to add or s
 
 ```ruby
 class MorphingController < Morphing::MorphingController
-  authenticate_user! only: [:morph]
+   before_filter :authorize_admin
+
+   private
+
+   def authorize_admin
+     unless user.is_admin?
+       flash[:error] = 'Permission denied!'
+       redirect_to root_path
+     end
+   end
 end
 ```
 
