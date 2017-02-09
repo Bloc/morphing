@@ -12,3 +12,6 @@ gemspec
 
 # To use debugger
 # gem 'debugger'
+group :test do
+  gem 'sqlite3'
+end
