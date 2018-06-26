@@ -85,9 +85,9 @@ Here are ways you can help:
 ## Local Development
 
 To test this gem locally with your app, e.g. the Bloc app, do the following:
-# Clone this repo locally
-# Update the gemfile in your app to use the local path:
+- Clone this repo locally
+- Update the gemfile in your app to use the local path:
 ```ruby
 gem 'morphing', path: '/Users/you/work/morphing'
 ```
-# Restart your app locally, test morphing functionality
+- Restart your app locally, test morphing functionality
